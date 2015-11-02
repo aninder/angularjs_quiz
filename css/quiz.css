@@ -37,7 +37,7 @@ main {
 #bkimg {
     max-width: 100%;
 }
-.stbtn, .next {
+.stbtn, .continue {
     width:96px;
     height: 30px;
     border-radius: 5px;
@@ -76,15 +76,18 @@ nav {
 .answer {
     list-style: none;
     width: 250px;
+    min-height:40px ;
     float:left;
     margin-top: 20px;
     opacity:.7;
     border: 4px solid darkgray;
-    border-radius: 10px;
+    border-radius: 5px;
     padding: 1px;
     color: #ffffff;
     cursor:pointer;
     transition: border .6s;
+    /*text-align: center;*/
+
 }
 .answer:nth-child(even) {
     margin-left: 50px;
@@ -97,9 +100,10 @@ nav {
     opacity:1;
 }
 .visualans {
-    position: absolute;
+    /*position: absolute;*/
     width: 20px;
     height: 30px;
+    float: right;
 }
 .ring {
     position: absolute;
@@ -107,4 +111,16 @@ nav {
     top:-3px;
     width: 50px;
     height: 40px;
+}
+#anstxt{
+    position: relative;
+    top:4px;
+    left: 5px;
+    font-family: "Lucida Grande", "Bitstream Vera Sans", "Verdana";
+    line-height: 2em;
+}
+.final{
+    font-size: 1.2em;
+    color: burlywood;
+    font-family: "Anonymous Pro", "Inconsolata", "Menlo", "Consolas", "Bitstream Vera Sans Mono", "Courier New";
 }

@@ -40,48 +40,84 @@ $(function(){
             ],
             "correct"  : 0
         }];
+    renderNav();
     $('#start').click(function(){
-        $($('.navitem')[0]).css('background','orange').css('opacity', 1);
-        $('#flarea').html("<p id='question'>"+json[0].question+"</p>");
-        $('#flarea').append("<input type='hidden' id='curques' value=0'>");
+        renderView(0);
+    });
+    function renderNav(){
+        for(var i=0;i<json.length;i++){
+            $('#mainnav').append("<li class='navitem'></li>")
+        }
+    }
+    function renderView(jsonIndex) {
+        $($('.navitem')[jsonIndex]).css('background','orange').css('opacity', 1);
+        $('#flarea').html("<p id='question'>"+json[jsonIndex].question+"</p>");
+        $('#curques').val(jsonIndex);
+        //$('#flarea').append("<input type='hidden' id='curques' value=0'>");
         $('#flarea').append("<ul id='answers'>");
-        json[0].answers.forEach(function(item,index) {
-            console.log("--->"+index+" -->"+json[0].answers.length);
+        json[jsonIndex].answers.forEach(function(item,index) {
+            //console.log("--->"+index+" -->"+json[0].answers.length);
             if(item.text) {
-                $('#answers').append("<li id="+index+" class='answer'>"+item.text+"</li>");
+                $('#answers').append("<li id="+index+" class='answer'><span id='anstxt'>"+item.text+"</span></li>");
             } else if(item. image) {
                 $('#answers').append("<li id="+index+" class='answer'><img src="+item.image+" alt='some img'/> </li>");
             } else {
                 alert('unknown data');
             }
         });
-    });
+        var direction;
+        //alert(jsonIndex)
+        if(jsonIndex/2 == 0 || jsonIndex/2 == 1){
+            direction='Left'
+        } else {
+            direction='Right'
+        }
+        $('#flarea').attr('class','animated bounceIn'+direction);
+    }
     $(document).on('click', '.answer', function(e){
-        $('#result').hide();
-        reset();
+        localStorage.setItem(getCurrentQuestion(),$(this).attr('id'));
+        resetAnsList();
         if(json[Number.parseInt($('#curques').val())].correct == $(this).attr('id')) {
             $(this).css('border', '4px solid green');
             $(this).append('<img class="visualans" src="images/icon_correct.svg" alt="??">')
-            $($('.navitem')[0]).append('<img class="ring animated flash" src="images/ring.svg"  alt="??">')
+            $($('.navitem')[getCurrentQuestion()]).append('<img class="ring animated flash" src="images/ring.svg"  alt="??">')
             $('#result').html(resultTemplate('correct'));
         } else {
             $(this).css('border', '4px solid red');
             $(this).append('<img class="visualans" src="images/icon_incorrect.svg" alt="??">')
             $('#result').html(resultTemplate('incorrect'));
+            $($('.navitem')[getCurrentQuestion()]).empty();
         }
         $('#result').slideDown('slow');
     });
-    $(document).on('click', '.next', function(){
+    $(document).on('click', '.continue', function(){
         resetView();
+        var to_render = getCurrentQuestion()+1;
+        if(to_render < json.length) {
+            renderView(to_render);
+        } else {
+            var total=0;
+            for(var i=0 ; i<json.length;i++){
+                if(json[i].correct == localStorage.getItem(i)){
+                    total+=1;
+                }
+            }
+            $('#result').html('<p class="animated rollIn">RESULTS</p><p class="final animated rotateIn">You answered '+total+' questions correctly<p>');
+        }
     });
-    function resetView() {
-        //$()
+    function getCurrentQuestion(){
+        return Number.parseInt($('#curques').val());
     }
-    function reset() {
+    function resetView() {
+        $('#flarea,#result').empty();
+        $('#flarea').removeAttr('class');
+    }
+    function resetAnsList() {
         $('.answer').css('border', '4px solid darkgray');
         $('.answer .visualans').remove();
+        $('#result').hide();
     }
     function resultTemplate(result) {
-       return "<p>You are <span id='resulttxt'>"+result+"</span></p><button class='next'>Continue</button>"
+       return "<p>You are <span id='resulttxt'>"+result+"</span></p><button class='continue'>Continue</button>"
     }
 });
