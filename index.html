@@ -23,10 +23,12 @@
             <p class="weltext">Welcome, click begin</p>
             <button id="start" class="stbtn" ng-click="activeQuestion=activeQuestion+1">Start</button>
         </div>
-        <div id="questionpage" class="{{(activeQuestion > -1 && activeQuestion < questions.length)?'inview':'hidden'}}">
+        <div id="questionpage" class="{{(activeQuestion%2 == 0)?'anime':'anime2'}} {{(activeQuestion > -1 && activeQuestion < questions.length)?'inview':'hidden'}}">
             <p id="question">{{questions[activeQuestion].question}}</p>
             <ul id="answers">
                 <li class="answer"
+                    ng-class="{correct:(isSelected($index) && isCorrect($index)),
+                    incorrect:(isSelected($index) && !isCorrect($index))}"
                     ng-repeat="ans in questions[activeQuestion].answers"
                     ng-click="selectAnswer($index)">
                     <span id="anstxt" ng-if="ans.text">{{ans.text}}</span>

@@ -1,38 +1,49 @@
 /*@import url(http://fonts.googleapis.com/css?family=Titillium+Web:900|Roboto:400,100);*/
-ul{
+ul {
     margin: 0;
     padding: 0;
 }
 
-body { background-color: #fff; padding: 20px; }
+body {
+    background-color: #fff;
+    padding: 20px;
+}
 
 #myQuiz {
-   font-family: 'Roboto', sans-serif; font-size: 16px; font-weight: 400;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
 }
+
 main {
     width: 80%;
     height: 33%;
     border: 2px solid violet;
     border: 2px solid darkgreen;
 }
+
 #flarea {
     position: absolute;
-    top:250px;
+    top: 250px;
     left: 75px;
 }
+
 #result {
     left: 10px;
     color: gray;
 }
+
 #result.hidden {
+    left: 10px;
     top: 400px;
     opacity: 0;
 }
-#result.inview{
-    top:300px;
+
+#result.inview {
+    top: 300px;
 }
 
-#resulttxt{
+#resulttxt {
     color: #ffffff;
 }
 
@@ -41,11 +52,13 @@ main {
     font-size: 2em;
     color: gold;
 }
+
 #bkimg {
     max-width: 100%;
 }
+
 .stbtn, .continue {
-    width:96px;
+    width: 96px;
     height: 30px;
     border-radius: 5px;
     border: red;
@@ -54,12 +67,14 @@ main {
     color: #ffffff;
     cursor: pointer;
 }
+
 nav {
     position: absolute;
-    top:230px;
+    top: 230px;
     left: 50px;
 }
-.navitem{
+
+.navitem {
     height: 30px;
     list-style: none;
     width: 30px;
@@ -71,46 +86,58 @@ nav {
     position: relative;
     transition: background 3s;
 }
+
 .navitem:after {
-    Content:"";
+    Content: "";
     position: absolute;
     background: url(../images/ring.svg) no-repeat;
-    left:-10px;
-    top:-3px;
+    left: -10px;
+    top: -3px;
     width: 50px;
     height: 40px;
     transition: opacity 2s;
     opacity: 0;
 }
-.ring.navitem:after{
+
+.ring.navitem:after {
     opacity: 1;
 }
+
 #mainnav > .active {
-    background:orange;
+    background: orange;
     opacity: 1;
 }
+
 #question {
     margin-top: 40px;
     font-size: 1.1em;
     font-family: "Helvetica Neue Light", "HelveticaNeue-Light", "Helvetica Neue", Calibri, Helvetica, Arial;
     color: #ffffff;
 }
+
 .answer {
     list-style: none;
     width: 200px;
-    min-height:40px ;
-    float:left;
+    min-height: 40px;
+    float: left;
     margin-top: 20px;
-    opacity:.7;
+    opacity: .7;
     border: 4px solid darkgray;
     border-radius: 5px;
     padding: 1px;
     color: #ffffff;
-    cursor:pointer;
+    cursor: pointer;
     transition: border .6s;
     /*text-align: center;*/
     position: relative;
 }
+.answer.correct{
+    border-color: green;
+}
+.answer.incorrect{
+    border-color: red;
+}
+
 .answer:nth-child(even) {
     margin-left: 50px;
 }
@@ -118,40 +145,84 @@ nav {
 .answer img {
     max-width: 90%;
 }
+
 .answer:hover {
-    opacity:1;
+    opacity: 1;
 }
+
 .visualans {
     position: absolute;
     width: 20px;
     height: 30px;
     /*float: right;*/
-    top:-1px;
+    top: -1px;
     right: 1px;
     /*display: inline-block;*/
 }
-#anstxt{
+
+#anstxt {
     position: relative;
-    top:4px;
+    top: 4px;
     left: 5px;
     font-family: "Lucida Grande", "Bitstream Vera Sans", "Verdana";
     line-height: 2em;
 }
-.final{
+
+.final {
     font-size: 1.2em;
     color: burlywood;
     font-family: "Anonymous Pro", "Inconsolata", "Menlo", "Consolas", "Bitstream Vera Sans Mono", "Courier New";
 }
+
 .hidden {
-    opacity:0;
-    left:600px;
+    opacity: 0;
+    left: 600px;
 }
 
 #intro, #questionpage, #result {
-    position:absolute;
+    position: absolute;
     width: 660px;
+    left: 600px;
     transition: opacity 2s, left 2s, top 1s;
 }
+
 .inview {
-    left:10px;
+    left: 10px !important;
+}
+
+#questionpage.anime {
+    animation: slideLeft 1s linear;
+}
+
+#questionpage.anime2 {
+    animation: slideLeft2 1s linear;
+}
+
+@keyframes slideLeft {
+    0% {
+        left: 600px;
+    }
+    50% {
+        left: 200px;
+    }
+    100% {
+        left: 10px;
+    }
+}
+
+@keyframes slideLeft2 {
+    0% {
+        left: 600px;
+    }
+    50% {
+        left: 200px;
+    }
+    100% {
+        left: 10px;
+    }
+
+    /*0% { left: 600px; }*/
+    /*50% { left: 10px; }*/
+    /*80% { left: 200px; }*/
+    /*100% { left: 10px; }*/
 }
