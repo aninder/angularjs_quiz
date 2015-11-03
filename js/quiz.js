@@ -103,6 +103,7 @@ $(function(){
                 }
             }
             $('#result').html('<p class="animated rollIn">RESULTS</p><p class="final animated rotateIn">You answered '+total+' questions correctly<p>');
+            $('#result').append("<button class='continue' onclick='location.reload()'>Restart</button>");
         }
     });
     function getCurrentQuestion(){
