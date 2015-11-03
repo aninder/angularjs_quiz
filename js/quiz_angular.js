@@ -46,7 +46,25 @@
         $scope.questions = quizData;
         $scope.activeQuestion = -1;
         $scope.selectAnswer = function(aIndex) {
-            alert($scope.activeQuestion+"----"+aIndex)
+            //alert($scope.activeQuestion+"----"+aIndex)
+            var corr = $scope.questions[$scope.activeQuestion].correct;
+            $scope.questions[$scope.activeQuestion].answered ='yes'
+            $scope.questions[$scope.activeQuestion].givenAnswer = aIndex;
+            if(corr === aIndex){
+                //$scope.result=true
+                $scope.currResult='correct!'
+            } else {
+                $scope.currResult='wrong'
+            }
+        }
+        $scope.isSelected = function(aIndex){
+            return aIndex === $scope.questions[$scope.activeQuestion].givenAnswer;
+        };
+        $scope.isCorrect = function(aIndex) {
+            return aIndex === $scope.questions[$scope.activeQuestion].correct
+        }
+        $scope.isAnsweredAndCorrect = function(aIndex) {
+            return $scope.questions[aIndex].correct === $scope.questions[aIndex].givenAnswer
         }
     }]);
 })();

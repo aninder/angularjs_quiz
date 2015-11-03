@@ -13,7 +13,9 @@
     <img id="bkimg" src="images/background.jpg" alt="kittje background">
     <nav>
         <ul id="mainnav">
-            <li class="navitem {{(activeQuestion >= $index)?'active':'inactive'}}" ng-repeat="x in questions" ></li>
+            <li class="navitem {{(activeQuestion >= $index)?'active':'inactive'}} {{(activeQuestion > -1 && isAnsweredAndCorrect($index))? 'ring':'xx'}}"
+                ng-repeat="x in questions">
+            </li>
         </ul>
     </nav>
     <div id="flarea">
@@ -24,18 +26,22 @@
         <div id="questionpage" class="{{(activeQuestion > -1 && activeQuestion < questions.length)?'inview':'hidden'}}">
             <p id="question">{{questions[activeQuestion].question}}</p>
             <ul id="answers">
-                <li class="answer" ng-repeat="ans in questions[activeQuestion].answers" ng-click="selectAnswer($index)">
+                <li class="answer"
+                    ng-repeat="ans in questions[activeQuestion].answers"
+                    ng-click="selectAnswer($index)">
                     <span id="anstxt" ng-if="ans.text">{{ans.text}}</span>
                     <img src="{{ans.image}}" alt="kithe??" ng-if="ans.image"></span>
-                    <img class="visualans" src="images/icon_correct.svg" alt="??">
-                    <img class="visualans" src="images/icon_incorrect.svg" alt="??">
+                    <img class="visualans" ng-if="isSelected($index) && isCorrect($index)" src="images/icon_correct.svg"
+                         alt="??">
+                    <img class="visualans"  ng-if="isSelected($index) && !isCorrect($index)"  src="images/icon_incorrect.svg"
+                         alt="??">
                 </li>
             </ul>
         </div>
-    </div>
-    <div id="result" class="{{(activeQuestion == questions.length)?'inview':'hidden' }}">
-        <p>You are <span id='resulttxt'>"+result+"</span></p>
-        <button class='continue'>Continue</button>
+        <div id="result" class="{{(questions[activeQuestion].answered==='yes')?'inview':'hidden' }}">
+            <p>You are <span id='resulttxt'>{{currResult}}</span></p>
+            <button class='continue' ng-click="activeQuestion=activeQuestion+1">Continue</button>
+        </div>
     </div>
 </main>
 <script src="js/angular.min.js"></script>
